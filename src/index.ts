@@ -22,7 +22,8 @@ import { formatDocument } from './handles/handleFormat';
 
 // parse other options
 const options = new Command("diagnostic-languageserver")
-  .option("--log-level <logLevel>", "A number indicating the log level (4 = log, 3 = info, 2 = warn, 1 = error). Defaults to `2`.");
+  .option("--log-level <logLevel>", "A number indicating the log level (4 = log, 3 = info, 2 = warn, 1 = error). Defaults to `2`.")
+  .parse(process.argv);
 let logLevel: MessageType = MessageType.Warning
 if (options.logLevel) {
   logLevel = parseInt(options.logLevel, 10) as any;
