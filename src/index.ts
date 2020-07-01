@@ -20,9 +20,6 @@ import {
 import logger from './common/logger';
 import { formatDocument } from './handles/handleFormat';
 
-// create connection by command argv
-const connection: IConnection = createConnection();
-
 // parse other options
 const options = new Command("diagnostic-languageserver")
   .option("--log-level <logLevel>", "A number indicating the log level (4 = log, 3 = info, 2 = warn, 1 = error). Defaults to `2`.");
@@ -30,10 +27,13 @@ let logLevel: MessageType = MessageType.Warning
 if (options.logLevel) {
   logLevel = parseInt(options.logLevel, 10) as any;
   if (logLevel && (logLevel < 1 || logLevel > 4)) {
-    console.error("Invalid `--log-level " + logLevel + "`. Falling back to `info` level.")
+    console.error("Invalid `--log-level " + logLevel + "`. Falling back to `warn` level.")
     logLevel = MessageType.Warning
   }
 }
+
+// create connection by command argv
+const connection: IConnection = createConnection();
 
 // init logger
 logger.init(connection, logLevel)
